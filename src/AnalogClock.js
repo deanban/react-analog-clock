@@ -7,10 +7,8 @@ import { cssTransform, updateTime } from './util';
 import { dark } from './themes';
 
 export default class AnalogClock extends Component {
-
     constructor(props) {
-        super();
-
+        super(props);
         const date = this.initializeTime(props.gmtOffset);
         this.state = {
             seconds: date[2],
@@ -27,26 +25,38 @@ export default class AnalogClock extends Component {
         }, 1000);
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.styles = cssTransform(Styles, nextProps);
+    componentDidUpdate(prevProps) {
+        this.styles = cssTransform(Styles, prevProps);
     }
 
     componentWillUnmount() {
         clearInterval(this.interval);
     }
 
-    initializeTime(gmtOffset) {
+    initializeTime = gmtOffset => {
         const now = new Date();
         if (gmtOffset && gmtOffset !== 'undefined') {
-            const offsetNow = new Date(now.valueOf() + (parseFloat(gmtOffset) * 1000 * 60 * 60));
-            return [offsetNow.getUTCHours(), offsetNow.getUTCMinutes(), offsetNow.getUTCSeconds()];
+            const offsetNow = new Date(
+                now.valueOf() + parseFloat(gmtOffset) * 1000 * 60 * 60
+            );
+            return [
+                offsetNow.getUTCHours(),
+                offsetNow.getUTCMinutes(),
+                offsetNow.getUTCSeconds(),
+            ];
         } else {
             return [now.getHours(), now.getMinutes(), now.getSeconds()];
         }
-    }
+    };
 
     render() {
-        return <AnalogClockLayout {...this.state} styles={this.styles} showSmallTicks={this.props.showSmallTicks} />;
+        return (
+            <AnalogClockLayout
+                {...this.state}
+                styles={this.styles}
+                showSmallTicks={this.props.showSmallTicks}
+            />
+        );
     }
 }
 

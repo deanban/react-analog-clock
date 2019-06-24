@@ -1,36 +1,40 @@
-var webpack = require('webpack');
+const webpack = require('webpack');
 
-var env = process.env.NODE_ENV;
-var config = {
+const env = process.env.NODE_ENV;
+const config = {
     externals: {
         react: {
             root: 'React',
             commonjs2: 'react',
             commonjs: 'react',
-            amd: 'react'
+            amd: 'react',
         },
         'react-dom': {
             root: 'ReactDOM',
             commonjs2: 'react-dom',
             commonjs: 'react-dom',
-            amd: 'react-dom'
-        }
+            amd: 'react-dom',
+        },
     },
     module: {
         loaders: [
-            { test: /\.js$/, loaders: ['babel-loader'], exclude: /node_modules/ }
-        ]
+            {
+                test: /\.(js|jsx)$/,
+                loaders: 'babel-loader',
+                exclude: /node_modules/,
+            },
+        ],
     },
     output: {
         library: 'ReactSexyClock',
-        libraryTarget: 'umd'
+        libraryTarget: 'umd',
     },
     plugins: [
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify(env)
-        })
-    ]
+            'process.env.NODE_ENV': JSON.stringify(env),
+        }),
+    ],
 };
 
 if (env === 'production') {
@@ -41,10 +45,10 @@ if (env === 'production') {
                 unsafe: true,
                 unsafe_comps: true,
                 screw_ie8: true,
-                warnings: false
-            }
+                warnings: false,
+            },
         })
-    )
+    );
 }
 
 module.exports = config;

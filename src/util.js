@@ -1,4 +1,4 @@
-export function cssTransform(styles, props) {
+export const cssTransform = (styles, props) => {
     return Object.keys(styles).reduce((newStyles, rootKey) => {
         const style = styles[rootKey];
         newStyles[rootKey] = Object.keys(style).reduce((newStyle, key) => {
@@ -11,9 +11,9 @@ export function cssTransform(styles, props) {
         }, {});
         return newStyles;
     }, {});
-}
+};
 
-export function updateTime({ seconds, minutes, hour }) {
+export const updateTime = ({ seconds, minutes, hour }) => {
     seconds += 1;
     if (seconds === 60) {
         seconds = 0;
@@ -27,4 +27,4 @@ export function updateTime({ seconds, minutes, hour }) {
         hour = 0;
     }
     return { seconds, minutes, hour };
-}
+};
