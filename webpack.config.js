@@ -19,7 +19,7 @@ const config = {
     module: {
         loaders: [
             {
-                test: /\.(js|jsx)$/,
+                test: /\.(js)$/,
                 loaders: 'babel-loader',
                 exclude: /node_modules/,
             },

@@ -33,7 +33,7 @@ export default class AnalogClock extends Component {
         clearInterval(this.interval);
     }
 
-    initializeTime = gmtOffset => {
+    initializeTime(gmtOffset) {
         const now = new Date();
         if (gmtOffset && gmtOffset !== 'undefined') {
             const offsetNow = new Date(
@@ -47,14 +47,14 @@ export default class AnalogClock extends Component {
         } else {
             return [now.getHours(), now.getMinutes(), now.getSeconds()];
         }
-    };
+    }
 
     render() {
         return (
             <AnalogClockLayout
-                {...this.state}
-                styles={this.styles}
-                showSmallTicks={this.props.showSmallTicks}
+              {...this.state}
+              styles={this.styles}
+              showSmallTicks={this.props.showSmallTicks}
             />
         );
     }
