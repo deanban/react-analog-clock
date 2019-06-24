@@ -26,7 +26,9 @@ export default class AnalogClock extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        this.styles = cssTransform(Styles, prevProps);
+        if (prevProps !== this.props) {
+            this.styles = cssTransform(Styles, prevProps);
+        }
     }
 
     componentWillUnmount() {
